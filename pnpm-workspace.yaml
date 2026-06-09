@@ -1,3 +1,12 @@
 packages:
   - 'web'
   - 'docs'
+
+# pnpm 10.26+ / 11: postinstall scripts require explicit approval (strictDepBuilds).
+allowBuilds:
+  esbuild: true
+  msgpackr-extract: true
+  msw: true
+  onnxruntime-node: true
+  protobufjs: true
+  sharp: true

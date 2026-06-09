@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Enable pnpm via corepack
-RUN corepack enable pnpm
+# Pin pnpm (10.26+ reads allowBuilds from pnpm-workspace.yaml)
+RUN corepack enable && corepack prepare pnpm@10.28.2 --activate
 
 # Install dependencies (pnpm workspace — root + web only, docs deploys separately)
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
