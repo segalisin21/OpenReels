@@ -1,14 +1,12 @@
-# Railway — OpenReels API + Web UI (service 1 of 2)
-# Also create a Worker service from the same repo with:
-#   Start command: npx tsx src/worker.ts
-# Add Redis plugin and set REDIS_URL on both services.
+# Railway — OpenReels API + Web UI + worker (one service, shared /app/jobs volume).
+# Requires Redis: REDIS_URL on this service.
 
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "npx tsx src/worker.ts & exec npx tsx src/server.ts"
+startCommand = "/app/scripts/railway-start.sh"
 healthcheckPath = "/api/v1/health"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"

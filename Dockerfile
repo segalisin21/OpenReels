@@ -36,11 +36,8 @@ COPY . .
 # Build frontend
 RUN cd web && npx vite build
 
-# Create directories
-RUN mkdir -p /output /app/jobs
+RUN mkdir -p /output /app/jobs && chmod +x scripts/railway-start.sh
 
-# Default: API server (Railway / docker compose). Override for CLI or worker:
-#   docker run ... src/index.ts --yes -o /output "topic"
-#   docker run ... src/worker.ts
-ENTRYPOINT ["npx", "tsx"]
-CMD ["src/server.ts"]
+# Railway default: API + worker. CLI one-shot override:
+#   docker run --entrypoint npx image tsx src/index.ts --yes -o /output "topic"
+CMD ["/app/scripts/railway-start.sh"]
