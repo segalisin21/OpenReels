@@ -39,5 +39,8 @@ RUN cd web && npx vite build
 # Create directories
 RUN mkdir -p /output /app/jobs
 
-# Default: CLI mode (backwards compatible)
-ENTRYPOINT ["npx", "tsx", "src/index.ts", "--yes", "-o", "/output"]
+# Default: API server (Railway / docker compose). Override for CLI or worker:
+#   docker run ... src/index.ts --yes -o /output "topic"
+#   docker run ... src/worker.ts
+ENTRYPOINT ["npx", "tsx"]
+CMD ["src/server.ts"]
